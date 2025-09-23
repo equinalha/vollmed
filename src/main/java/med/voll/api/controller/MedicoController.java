@@ -10,9 +10,9 @@ import med.voll.api.medico.MedicoDTO;
 import med.voll.api.medico.MedicoListagemDTO;
 import med.voll.api.medico.MedicoRepository;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +31,22 @@ public class MedicoController {
         repository.save(new Medico(dados));
     }
 
+    // Forma sem paginação
+    /*
     @GetMapping
     public List<MedicoListagemDTO> listar() {
 
         // Repository retorna um List de medicos, portanto foi criado um DTO para exibir somente os campos necessários: (Nome, email, crm, especialidade)
         // No DTO, foi criado um construtor que recebe um objeto Medico e popula os dados do DTO
         return repository.findAll().stream().map(MedicoListagemDTO::new).toList();
+    } */
+
+    // Forma com paginação
+    @GetMapping
+    public Page<MedicoListagemDTO> listar(Pageable page) {
+
+        // Repository retorna um List de medicos, portanto foi criado um DTO para exibir somente os campos necessários: (Nome, email, crm, especialidade)
+        // No DTO, foi criado um construtor que recebe um objeto Medico e popula os dados do DTO
+        return repository.findAll(page).map(MedicoListagemDTO::new);
     }
-    
 }
