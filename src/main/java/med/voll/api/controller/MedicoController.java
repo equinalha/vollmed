@@ -22,7 +22,7 @@ public class MedicoController {
     private MedicoRepository repository;
 
     @PostMapping
-    @Transactional
+    @Transactional // Por ser um método que faz gravação de dados
     public void cadastrar(@RequestBody @Valid MedicoDTO dados) {
         repository.save(new Medico(dados));
     }
