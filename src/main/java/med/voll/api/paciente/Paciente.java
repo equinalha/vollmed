@@ -9,7 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.endereco.DadosEndereco;
+import med.voll.api.controller.PacienteAtualizaDTO;
+import med.voll.api.endereco.Endereco;
 
 @Entity
 @Getter
@@ -23,7 +24,7 @@ public class Paciente {
         this.email = paciente.email();
         this.cpf = paciente.cpf();
         this.telefone = paciente.telefone();
-        this.endereco = paciente.endereco();
+        this.endereco = new Endereco(paciente.endereco());
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,26 @@ public class Paciente {
     private String telefone;
 
     @Embedded
-    private DadosEndereco endereco;
+    private Endereco endereco;
+    private Boolean ativo;
+
+    public void atualizar(PacienteAtualizaDTO dados) {
+        if(dados.nome() != null)
+            this.nome = dados.nome();
+        if(dados.email() != null)
+            this.email = dados.email();
+        if(dados.telefone() != null)
+            this.telefone = dados.telefone();
+        if(dados.endereco() != null)
+            this.endereco.atualizar(dados.endereco());
+        if(dados.ativo() != null)
+            this.ativo = dados.ativo();
+    }
+
+    public void excluir() {
+        this.ativo = false;
+    }
+
+
     
 }
