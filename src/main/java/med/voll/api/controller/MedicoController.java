@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/medicos")
@@ -50,5 +50,12 @@ public class MedicoController {
         // Repository retorna um List de medicos, portanto foi criado um DTO para exibir somente os campos necessários: (Nome, email, crm, especialidade)
         // No DTO, foi criado um construtor que recebe um objeto Medico e popula os dados do DTO
         return repository.findAll(page).map(MedicoListagemDTO::new);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public void atualizar(@RequestBody @Valid MedicoAtualizaDTO dados) {
+        Medico medico = repository.getReferenceById(dados.id());
+        medico.atualizar(dados);
     }
 }
