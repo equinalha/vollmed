@@ -28,6 +28,9 @@ Especialidade especialidade,
 
 @NotNull
 @Valid // Diz para o spring que esta validação vem do outro objeto (record), neste caso, endereço
-DadosEndereco endereco) {
+DadosEndereco endereco,
+
+Boolean ativo
+) {
     
 }
