@@ -2,6 +2,7 @@ package med.voll.api.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -33,9 +34,16 @@ public class MedicoController {
 
     @PostMapping
     @Transactional // Por ser um método que faz gravação de dados
-    public ResponseEntity<dadosDetalhamentoMedicoDTO> cadastrar(@RequestBody @Valid MedicoDTO dados) {
-        repository.save(new Medico(dados));
-        return ResponseEntity.created();
+    public ResponseEntity<dadosDetalhamentoMedicoDTO> cadastrar(@RequestBody @Valid MedicoDTO dados, UriComponentsBuilder uriBuilder) {
+        
+        Medico medico = new Medico(dados);
+        repository.save(medico);
+        // Para devolver o HTTP 201 é necessário:
+        // 1 - Devolver no body os dados do registro criado
+        // 2 - Devolver um cabeçalho "Location" com a URL de onde se acessa o recurso criado
+
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri(); // Constrtói a URI que vai apontar para o recurso criado
+        return ResponseEntity.created(uri).body(new dadosDetalhamentoMedicoDTO(medico)); // HTTP 201 - Created
     }
 
     // Forma sem paginação

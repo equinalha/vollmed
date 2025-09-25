@@ -27,7 +27,7 @@ public class Medico {
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
         this.telefone = dados.telefone();
-        this.ativo = dados.ativo();
+        this.ativo = true;
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
