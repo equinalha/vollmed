@@ -18,6 +18,9 @@ public class TratadorDeErros {
         return ResponseEntity.notFound().build();
     }
 
+    // Trata erro 400 de Bean Validation
+    // As mensagens são geradas em inglês pelo Spring-Validation, porém se for enviado o cabeçalho "Accept-Language: pt-br"
+    // será traduzido automaticamente
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> tratarErro400(MethodArgumentNotValidException exception){
         List<FieldError> erros = exception.getFieldErrors();
