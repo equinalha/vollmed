@@ -8,7 +8,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DetalhamentoPacienteDTO;
 import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.domain.paciente.PacienteAtualizaDTO;
 import med.voll.api.domain.paciente.PacienteDTO;
+import med.voll.api.domain.paciente.PacienteListagemDTO;
 import med.voll.api.domain.paciente.PacienteRepository;
 
 import java.net.URI;
