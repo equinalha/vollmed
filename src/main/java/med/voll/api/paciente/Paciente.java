@@ -24,7 +24,7 @@ public class Paciente {
         this.email = paciente.email();
         this.cpf = paciente.cpf();
         this.telefone = paciente.telefone();
-        this.endereco = new Endereco(paciente.endereco());
+        this.endereco = paciente.endereco();
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
