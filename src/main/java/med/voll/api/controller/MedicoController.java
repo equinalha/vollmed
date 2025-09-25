@@ -68,6 +68,15 @@ public class MedicoController {
         return ResponseEntity.ok(pagina);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<dadosDetalhamentoMedicoDTO> detalhar(@PathVariable Long id){
+
+        Medico medico = repository.getReferenceById(id);
+        dadosDetalhamentoMedicoDTO dadosMedico = new dadosDetalhamentoMedicoDTO(medico);
+        return ResponseEntity.ok(dadosMedico);
+        
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity<dadosDetalhamentoMedicoDTO> atualizar(@RequestBody @Valid MedicoAtualizaDTO dados) {
