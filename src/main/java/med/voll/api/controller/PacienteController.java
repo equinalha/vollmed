@@ -6,10 +6,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.paciente.DetalhamentoPacienteDTO;
-import med.voll.api.paciente.Paciente;
-import med.voll.api.paciente.PacienteDTO;
-import med.voll.api.paciente.PacienteRepository;
+import med.voll.api.domain.paciente.DetalhamentoPacienteDTO;
+import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.domain.paciente.PacienteDTO;
+import med.voll.api.domain.paciente.PacienteRepository;
 
 import java.net.URI;
 

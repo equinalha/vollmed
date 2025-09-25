@@ -6,12 +6,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.Medico;
-import med.voll.api.medico.MedicoAtualizaDTO;
-import med.voll.api.medico.MedicoDTO;
-import med.voll.api.medico.MedicoListagemDTO;
-import med.voll.api.medico.MedicoRepository;
-import med.voll.api.medico.dadosDetalhamentoMedicoDTO;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.MedicoAtualizaDTO;
+import med.voll.api.domain.medico.MedicoDTO;
+import med.voll.api.domain.medico.MedicoListagemDTO;
+import med.voll.api.domain.medico.MedicoRepository;
+import med.voll.api.domain.medico.dadosDetalhamentoMedicoDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -71,7 +71,12 @@ public class MedicoController {
     @GetMapping("/{id}")
     public ResponseEntity<dadosDetalhamentoMedicoDTO> detalhar(@PathVariable Long id){
 
+        // Se for fornecido um id que não existe, o método getReferenceById irá lançar uma exception que,
+        // se não for tratada, vai resultar em um erro HTTP 500 na aplicação.
+        // Para tratar isso, é interessante utilizar um Try-Catch (solução local) ou 
+
         Medico medico = repository.getReferenceById(id);
+
         dadosDetalhamentoMedicoDTO dadosMedico = new dadosDetalhamentoMedicoDTO(medico);
         return ResponseEntity.ok(dadosMedico);
         
