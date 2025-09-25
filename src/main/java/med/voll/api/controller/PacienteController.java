@@ -6,7 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.domain.paciente.DetalhamentoPacienteDTO;
+import med.voll.api.domain.paciente.PacienteDetalhamentoDTO;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteAtualizaDTO;
 import med.voll.api.domain.paciente.PacienteDTO;
@@ -52,11 +52,11 @@ public class PacienteController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DetalhamentoPacienteDTO> atualizar(@RequestBody @Valid PacienteAtualizaDTO dados) {
+    public ResponseEntity<PacienteDetalhamentoDTO> atualizar(@RequestBody @Valid PacienteAtualizaDTO dados) {
         Paciente paciente = repository.getReferenceById(dados.id());
         paciente.atualizar(dados);
 
-        return ResponseEntity.ok(new DetalhamentoPacienteDTO(paciente));
+        return ResponseEntity.ok(new PacienteDetalhamentoDTO(paciente));
     }
 
     @DeleteMapping("/{id}")

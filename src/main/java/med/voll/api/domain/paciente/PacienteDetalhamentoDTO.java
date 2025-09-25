@@ -2,7 +2,7 @@ package med.voll.api.domain.paciente;
 
 import med.voll.api.domain.endereco.Endereco;
 
-public record DetalhamentoPacienteDTO(
+public record PacienteDetalhamentoDTO(
 
     String nome,
     String email,
@@ -12,7 +12,7 @@ public record DetalhamentoPacienteDTO(
 
 ) {
 
-    public DetalhamentoPacienteDTO(Paciente paciente){
+    public PacienteDetalhamentoDTO(Paciente paciente){
         this(paciente.getNome(), paciente.getEmail(), paciente.getCpf(), paciente.getTelefone(), paciente.getEndereco());
     }
 
