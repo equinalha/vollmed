@@ -71,9 +71,10 @@ public class MedicoController {
     @GetMapping("/{id}")
     public ResponseEntity<dadosDetalhamentoMedicoDTO> detalhar(@PathVariable Long id){
 
-        // Se for fornecido um id que não existe, o método getReferenceById irá lançar uma exception que,
+        // Se for fornecido um id que não existe, o método getReferenceById irá lançar uma EntityNotFoundException que,
         // se não for tratada, vai resultar em um erro HTTP 500 na aplicação.
-        // Para tratar isso, é interessante utilizar um Try-Catch (solução local) ou 
+        // Para tratar isso, é interessante utilizar um Try-Catch (solução local) ou criar uma classe (solução global) anotada com @RestControllerAdvice
+        // contendo um método anotado por @ExceptionHandler(EntityNotFoundException.class)
 
         Medico medico = repository.getReferenceById(id);
 
