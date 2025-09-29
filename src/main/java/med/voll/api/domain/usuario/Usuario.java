@@ -1,8 +1,10 @@
 package med.voll.api.domain.usuario;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -29,8 +31,9 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+       return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
     @Override
     public String getPassword() {
         return senha;
@@ -40,4 +43,8 @@ public class Usuario implements UserDetails {
         return login;
     }
 
+    public Usuario(String nome, String senha){
+        this.login = nome;
+        this.senha = senha;
+    }
 }
