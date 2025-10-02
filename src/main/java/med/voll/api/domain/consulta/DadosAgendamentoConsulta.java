@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import med.voll.api.domain.medico.Especialidade;
 
 public record DadosAgendamentoConsulta(
     Long idMedico,
@@ -14,7 +15,9 @@ public record DadosAgendamentoConsulta(
     // Para que o spring reconheça a data passada via request, o formato deve ser: AAAA-MM-DDTHH:mm(:SS)
     // Também é possível personalizar o formato da seguinte forma:
     // @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    LocalDateTime data
+    LocalDateTime data,
+
+    Especialidade especialidade
 ) {
 
 }
