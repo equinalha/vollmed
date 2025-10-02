@@ -1,5 +1,7 @@
 package med.voll.api.domain.consulta;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,13 +52,29 @@ public class AgendaDeConsultas {
             return medicoRepository.getReferenceById(dados.idMedico());
         }
 
-        if (dados.especialidade() != null) {
+        if (dados.especialidade() == null) {
             throw new ValidacaoException("Especialidade é obrigatória quando o médico não for escolhido");
         }
         
         
 
         return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
+    }
+
+    public Consulta cancelar(DadosCancelamentoConsulta dados) {
+        Consulta consulta = consultaRepository.findById(dados.id()).get();
+
+        if (LocalDateTime.now().plusHours(24).isAfter(consulta.getData())) {
+            throw new ValidacaoException("O cancelamento deverá ser feito com pelo menos 24 horas de antencedência");
+        }
+
+        if (dados.motivo() == null){
+            throw new ValidacaoException("É obrigatório informar o motivo");
+        }
+
+        consultaRepository.delete(consulta);
+
+        return consulta;
     }
 
 }
