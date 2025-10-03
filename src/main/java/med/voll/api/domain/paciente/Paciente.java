@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.domain.endereco.DadosEndereco;
 import med.voll.api.domain.endereco.Endereco;
 
 @Entity
@@ -35,7 +36,7 @@ public class Paciente {
     private String telefone;
 
     @Embedded
-    private Endereco endereco;
+    private DadosEndereco endereco;
     private Boolean ativo;
 
     public void atualizar(PacienteAtualizaDTO dados) {

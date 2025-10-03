@@ -3,6 +3,7 @@ package med.voll.api.domain.paciente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import med.voll.api.domain.endereco.DadosEndereco;
 import med.voll.api.domain.endereco.Endereco;
 
 public record PacienteDTO(
@@ -20,7 +21,7 @@ public record PacienteDTO(
     @NotBlank
     @Pattern(regexp = "\\d{3\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
     String cpf,
-    Endereco endereco
+    DadosEndereco endereco
 ) {
 
     public PacienteDTO(Paciente paciente) {
