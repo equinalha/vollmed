@@ -36,7 +36,7 @@ public class ValidadorConsultaMesmoDia implements ValidadorAgendamento {
         LocalDateTime fimDoDia = dia.atTime(LocalTime.MAX); // Ex: 2025-10-03T23:59:59.999999999
 
         // 3. Chamar o método do repositório
-        List<Consulta> consultas =  consultaRepository.findByPacienteAndDataHoraBetween(paciente, inicioDoDia, fimDoDia);
+        List<Consulta> consultas =  consultaRepository.findByPacienteAndDataBetween(paciente, inicioDoDia, fimDoDia);
 
         if (consultas.size() > 0){
             throw new ValidacaoException("Já existe consulta agendada para este paciente no mesmo dia");

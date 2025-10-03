@@ -1,12 +1,12 @@
-create table consultas(
+-- Conteúdo de V6__create-table-consultas.sql
 
-    id bigint not null auto_increment,
-    medico_id bigint not null,
-    paciente_id bigint not null,
-    data datetime not null,
-
-    primary key(id),
-    constraint fk_consultas_medico_id foreign key(medico_id) references medicos(id),
-    constraint fk_consultas_paciente_id foreign key(paciente_id) references pacientes(id)
-
+CREATE TABLE consultas (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    paciente_id BIGINT NOT NULL,
+    medico_id BIGINT NOT NULL, -- Supondo que você também tenha uma FK para médicos
+    data DATETIME NOT NULL,
+    
+    PRIMARY KEY(id),
+    CONSTRAINT fk_consultas_paciente_id FOREIGN KEY (paciente_id) REFERENCES paciente(id),
+    CONSTRAINT fk_consultas_medico_id FOREIGN KEY (medico_id) REFERENCES medico(id)
 );

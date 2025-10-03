@@ -29,7 +29,7 @@ public class ValidadorMedicoConsulta implements ValidadorAgendamento{
         LocalDateTime horaInicioConsulta = dados.data();
         LocalDateTime horaFimConsulta = horaInicioConsulta.plusHours(1);
 
-        List<Consulta> consultas = consultaRepository.findByMedicoAndDataHoraBetween(medico, horaInicioConsulta, horaFimConsulta);
+        List<Consulta> consultas = consultaRepository.findByMedicoAndDataBetween(medico, horaInicioConsulta, horaFimConsulta);
 
         if(consultas.size() > 0){
             throw new ValidacaoException("O médico escolhido já tem uma consulta agendada neste horário");

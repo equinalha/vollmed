@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
-    List<Consulta> findByPacienteAndDataHoraBetween(Paciente paciente, LocalDateTime startOfDay, LocalDateTime endOfDay);
+    List<Consulta> findByPacienteAndDataBetween(Paciente paciente, LocalDateTime startOfDay, LocalDateTime endOfDay);
 
-    List<Consulta> findByMedicoAndDataHoraBetween(
+    List<Consulta> findByMedicoAndDataBetween(
             Medico medico, LocalDateTime horaInicioConsulta, LocalDateTime horaFimConsulta);
 }

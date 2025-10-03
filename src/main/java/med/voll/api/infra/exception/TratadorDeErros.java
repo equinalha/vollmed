@@ -29,7 +29,7 @@ public class TratadorDeErros {
     }
 
     // Faz com que o Spring retorne corretamente as mensagens de erro dos validadores para o request
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(ValidacaoException.class)
     public ResponseEntity<Object> tratarErroValidacao(ValidacaoException exception){
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
