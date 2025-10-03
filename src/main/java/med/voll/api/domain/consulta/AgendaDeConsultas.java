@@ -1,6 +1,7 @@
 package med.voll.api.domain.consulta;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteRepository;
 import med.voll.api.domain.ValidacaoException;
+import med.voll.api.domain.consulta.validacoes.ValidadorAgendamento;
 import med.voll.api.domain.medico.Medico;
 
 @Service
@@ -23,6 +25,12 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    // Pela interface, o Spring é forçado a injetar todos os validadores que a implementam
+    // Assim a classe Service depende de uma abstração de Validadores e não das classes concretas que
+    // fazem as validações
+    @Autowired
+    private List<ValidadorAgendamento> validadores;
+
     public void agendar(DadosAgendamentoConsulta dados){
 
         if (!pacienteRepository.existsById(dados.idPaciente())) {
@@ -35,6 +43,10 @@ public class AgendaDeConsultas {
             throw new ValidacaoException("Id do medico informado não existe");
         }
 
+        // Percorre todos os validadores fazendo a validação de cada um
+        // Se apagar algum validador, automaticamente ele sai da lista
+        // Da mesma forma se mais algum for criado, automaticamente estará funcionando também
+        validadores.forEach(v -> v.validar(dados));
 
         Medico medico = escolherMedico(dados);
         Paciente paciente = pacienteRepository.findById(dados.idPaciente()).get();
